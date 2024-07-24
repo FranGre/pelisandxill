@@ -10,9 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('films', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->max(50);
+            $table->string('title', 60);
+            $table->text('summary')->max(500);
+            $table->string('sinopsis');
+            $table->smallInteger('year');
+            $table->string('director', 80);
+            $table->smallInteger('duration'); // form en minutos
+            $table->tinyText('age');
+
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('films');
     }
 };
