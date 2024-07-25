@@ -1,11 +1,39 @@
 <?php
 
 use function Livewire\Volt\{state};
+use Illuminate\Support\Facades\Storage;
+use App\Models\TemporalyCover;
+use App\Models\Cover;
+use App\Models\Trailer;
+use App\Models\Film;
 
-state(['title', 'summary', 'sipnosis', 'year', 'director', 'duration', 'age']);
+state(['title', 'summary', 'sipnosis', 'year', 'director', 'duration', 'age', 'link']);
 
 $save = function () {
-    dd($this->all());
+    // validación
+
+    $temporalyCover = TemporalyCover::first();
+
+    $path = 'covers/'. $temporalyCover->folder . '/' . $temporalyCover->filename;
+    $filename = $temporalyCover->filename;
+
+    $cover = Cover::create(['path' => $path, 'filename' => $filename]);
+
+    $oldPath = 'covers/tmp/'. $temporalyCover->folder . '/' . $temporalyCover->filename;
+    $newPath = 'covers/'. $temporalyCover->folder . '/' . $temporalyCover->filename;
+    Storage::copy($oldPath, $newPath);
+
+    Storage::deleteDirectory('covers/tmp/'. $temporalyCover->folder);
+    $temporalyCover->delete();
+
+    $trailer = Trailer::create(['link' => $this->link]);
+
+    $film = Film::create(['cover_id' => $cover->id, 'trailer_id' => $trailer->id ,'title' => $this->title
+    , 'summary' => $this->summary ,'sipnosis' => $this->sipnosis ,'year' => $this->year ,'director' => $this->director 
+    ,'age' => $this->age, 'duration' => $this->duration]);
+
+    // arreglar
+    return $this->redirect(route('welcome'), true);
 }
 
 ?>
@@ -56,7 +84,13 @@ $save = function () {
                 <label>Age</label>
                 <x-input.text placeholder="Age..." wire:model='age' />
             </div>
+
+            <div class="flex flex-col space-y-2">
+                <label>Trailer</label>
+                <x-input.text placeholder="Trailer..." wire:model='link' />
+            </div>
         </div>
+
 
         <div class="space-y-6">
             <div class="space-y-1">

@@ -13,11 +13,12 @@ return new class extends Migration {
         Schema::create('films', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cover_id');
-            //$table->unsignedBigInteger('trailer_id');
+            $table->unsignedBigInteger('trailer_id');
             //$table->unsignedBigInteger('video_id');
+            //$table->unsignedBigInteger('user_id');
             $table->string('title', 60);
             $table->text('summary')->max(500);
-            $table->string('sinopsis');
+            $table->string('sipnosis');
             $table->smallInteger('year');
             $table->string('director', 80);
             $table->smallInteger('duration'); // form en minutos
@@ -25,8 +26,9 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->foreign('cover_id')->references('id')->on('covers');
-            //$table->foreign('trailer_id')->references('id')->on('trailers');
+            $table->foreign('trailer_id')->references('id')->on('trailers');
             //$table->foreign('video_id')->references('id')->on('videos');
+            //$table->foreign('user_id')->references('id')->on('users');
         });
     }
 

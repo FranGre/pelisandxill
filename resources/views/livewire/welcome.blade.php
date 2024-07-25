@@ -1,8 +1,11 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{state, mount};
+use App\Models\Film;
 
-//
+state(['films']);
+
+mount(fn () => $this->films = Film::all());
 
 ?>
 
@@ -27,68 +30,19 @@ use function Livewire\Volt\{state};
 
 
     <div class="mt-24">
-        <ul
-            class="grid 
+        <ul class="grid 
         grid-cols-2 gap-3 
         sm:grid-cols-3 sm:gap-4
         md:grid-cols-4 md:gap-6
         lg:md:grid-cols-5 lg:gap-12">
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
+            @foreach ($films as $film)
+            <li class="rounded p-3 flex flex-col justify-center items-center
+                                dark:bg-gray-700
+                                bg-neutral-400">
+                <img src="{{asset('storage/' . $film->cover->path)}}" alt="{{$film->title}} cover" />
+                <small>{{$film->title}}</small>
             </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
-            <li
-                class="rounded p-3 flex flex-col justify-center items-center
-            dark:bg-gray-700
-            bg-neutral-400">
-                <img src="" alt="cover" />
-                <small>title</small>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>

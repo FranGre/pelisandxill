@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('trailers', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->string('filename');
+            $table->string('link');
             $table->timestamps();
         });
     }
