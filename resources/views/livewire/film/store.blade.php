@@ -64,51 +64,50 @@ $save = function () {
             <div class="flex flex-col space-y-2">
                 <label>Title</label>
                 <x-input.text placeholder="Title..." wire:model='title' />
-                @error('title') <span class="text-redd-400">{{ $message }}</span> @enderror
-
+                @error('title') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Summary</label>
                 <x-input.text placeholder="Summary..." wire:model='summary' />
-                @error('summary') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('summary') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Sipnosis</label>
                 <x-input.text placeholder="Sipnosis..." wire:model='sipnosis' />
-                @error('sipnosis') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('sipnosis') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Year</label>
                 <x-input.text placeholder="Year..." wire:model='year' />
-                @error('year') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('year') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Director</label>
                 <x-input.text placeholder="Director..." wire:model='director' />
-                @error('director') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('director') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Duration</label>
                 <x-input.text placeholder="Duration..." wire:model='duration' />
-                @error('duration') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('duration') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Age</label>
                 <x-input.text placeholder="Age..." wire:model='age' />
-                @error('age') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('age') <x-error-message>{{$message}}</x-error-message> @enderror
 
             </div>
 
             <div class="flex flex-col space-y-2">
                 <label>Trailer</label>
                 <x-input.text placeholder="Trailer..." wire:model='link' />
-                @error('link') <span class="text-redd-400">{{ $message }}</span> @enderror
+                @error('link') <x-error-message>{{$message}}</x-error-message> @enderror
             </div>
         </div>
 
