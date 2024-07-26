@@ -16,4 +16,9 @@ class Film extends Model
     {
         return $this->belongsTo(Cover::class);
     }
+
+    public function trailer(): BelongsTo
+    {
+        return $this->belongsTo(Trailer::class);
+    }
 }
