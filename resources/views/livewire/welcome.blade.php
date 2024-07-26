@@ -36,12 +36,7 @@ mount(fn () => $this->films = Film::all());
         md:grid-cols-4 md:gap-6
         lg:md:grid-cols-5 lg:gap-12">
             @foreach ($films as $film)
-            <li class="rounded p-3 flex flex-col justify-center items-center
-                                dark:bg-gray-700
-                                bg-neutral-400">
-                <img src="{{asset('storage/' . $film->cover->path)}}" alt="{{$film->title}} cover" />
-                <small>{{$film->title}}</small>
-            </li>
+            <livewire:components.card.film :film="$film" />
             @endforeach
         </ul>
     </div>

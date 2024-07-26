@@ -27,5 +27,6 @@ Volt::route('nueva-pelicula', 'film.store')->name('storeFilm');
 Route::post('/uploadCover', UploadTemporalyCoverController::class)->name('uploadTemporalyCover');
 Route::delete('/deleteCover', DeleteTemporalyCoverController::class)->name('deleteTemporalyCover');
 
+Volt::route('watch-film', 'film.watch')->name('watchFilm');
 
 require __DIR__ . '/auth.php';

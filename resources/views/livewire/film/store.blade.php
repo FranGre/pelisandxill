@@ -101,7 +101,6 @@ $save = function () {
                 <label>Age</label>
                 <x-input.text placeholder="Age..." wire:model='age' />
                 @error('age') <x-error-message>{{$message}}</x-error-message> @enderror
-
             </div>
 
             <div class="flex flex-col space-y-2">
