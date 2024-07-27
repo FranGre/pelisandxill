@@ -7,6 +7,8 @@ use App\Models\Cover;
 use App\Models\Trailer;
 use App\Models\Film;
 
+// https://stackoverflow.com/questions/72321283/filepond-is-there-a-way-to-send-revert-when-large-chunked-file-is-canceled-mid-u
+
 state(['title', 'summary', 'sipnosis', 'year', 'director', 'duration', 'age', 'link']);
 
 rules([
@@ -57,7 +59,7 @@ $save = function () {
 
 <div>
     <h1 class="text-center">Nueva Película</h1>
-    <form wire:submit.prevent='save' class="space-y-12 mt-16">
+    <form wire:submit.prevent='save' class="space-y-12 mt-16" enctype="multipart/form-data">
         <div class="grid
         md:grid-cols-2 md:gap-6
         ">
@@ -114,7 +116,12 @@ $save = function () {
         <div class="space-y-6">
             <div class="space-y-1">
                 <label>Cover</label>
-                <input type="file" name="cover">
+                <input type="file" name="cover" id="cover">
+            </div>
+
+            <div class="space-y-1">
+                <label>Film</label>
+                <input type="file" name="film" id="film">
             </div>
         </div>
 
@@ -124,26 +131,43 @@ $save = function () {
 
 
 @section('scripts')
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script>
     // Image Preview
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
     FilePond.registerPlugin(FilePondPluginImagePreview)
 
-    FilePond.setOptions({
+    const inputElementCover = document.getElementById('cover')
+    
+    FilePond.create(inputElementCover,{
+        maxFileSize: 1024 * 1024 * 20,
         server: {
             process: '/uploadCover',
             revert: '/deleteCover',
             headers: {
                 'X-CSRF-TOKEN' : '{{csrf_token()}}'
-            }
+            },
         },
-    });
+    })
 
-    const inputElement = document.querySelector('input[type="file"]');
-    
-    FilePond.create(inputElement);
+    const inputElementFilm = document.getElementById('film')
+
+    FilePond.create(inputElementFilm, {
+        maxFileSize: 1024 * 1024 * 1024 * 1,
+        server: {
+            chunkUploads: true,
+            chunkSize: 20000000,
+            process: '/uploadFilm',
+            revert: '/deleteFilm',
+            headers: {
+                'X-CSRF-TOKEN' : '{{csrf_token()}}'
+            }
+        }
+
+    })
     
 </script>
 @endsection
