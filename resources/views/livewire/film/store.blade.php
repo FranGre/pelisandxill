@@ -137,8 +137,7 @@ $save = function () {
 
 <script>
     // Image Preview
-    FilePond.registerPlugin(FilePondPluginFileValidateSize);
-    FilePond.registerPlugin(FilePondPluginImagePreview)
+    FilePond.registerPlugin(FilePondPluginFileValidateSize, FilePondPluginImagePreview)
 
     const inputElementCover = document.getElementById('cover')
     
@@ -156,10 +155,11 @@ $save = function () {
     const inputElementFilm = document.getElementById('film')
 
     FilePond.create(inputElementFilm, {
-        maxFileSize: 1024 * 1024 * 1024 * 1,
+        maxFileSize: 1024 * 1024 * 1024 * 3,
         server: {
             chunkUploads: true,
-            chunkSize: 20000000,
+            chunkSize: 1024 * 1024 * 1,
+            timeout: 15000,
             process: '/uploadFilm',
             revert: '/deleteFilm',
             headers: {
